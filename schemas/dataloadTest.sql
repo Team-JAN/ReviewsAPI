@@ -1,5 +1,5 @@
 -- Connect to DB
-\c sdc;
+\c sdctest;
 
 -- Reviews
 COPY reviews(id, product_id, rating, date, summary, body, recommend, reported, reviewer_name, reviewer_email, response, helpfulness)

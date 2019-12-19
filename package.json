@@ -8,5 +8,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "faker": "^4.1.0",
+    "lorem-ipsum": "^2.0.3",
+    "pg": "^7.15.1"
+  }
 }
