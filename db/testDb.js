@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+const ClientSync = require('pg-native');
 
 process.env.PGDATABASE = 'sdctest';
 const client = new Client({
@@ -13,4 +14,11 @@ client.connect(err => {
     }
 });
 
-module.exports = client;
+const clientSync = new ClientSync({
+    user: 'alexanderho'
+});
+
+clientSync.connectSync();
+
+module.exports.db = client;
+module.exports.dbSync = clientSync;

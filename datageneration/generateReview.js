@@ -13,10 +13,12 @@ const lorem = new LoremIpsum ({
 });
 
 module.exports = () => {
+    var dt = new Date();
+    date = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
     return [
         Math.floor(Math.random() * 4 + 1),
         Math.floor(Math.random() * 5 + 1),
-        new Date(),
+        date,
         lorem.generateSentences(1),
         lorem.generateParagraphs(1),
         Math.floor(Math.random() * 2),
@@ -28,3 +30,16 @@ module.exports = () => {
     ];
 };
 
+//Reviews Schema
+// id serial PRIMARY KEY,
+// product_id INT NOT NULL, //Between 1 and 4
+// rating SMALLINT NOT NULL, //Between 1 and 5
+// date DATE NOT NULL, //
+// summary VARCHAR(60) NOT NULL,
+// body VARCHAR(1000),
+// recommend BOOLEAN NOT NULL,
+// reported BOOLEAN NOT NULL,
+// reviewer_name VARCHAR(60) NOT NULL,
+// reviewer_email VARCHAR(60) NOT NULL,
+// response VARCHAR(1000),
+// helpfulness SMALLINT NOT NULL
