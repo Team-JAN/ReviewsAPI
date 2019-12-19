@@ -1,4 +1,4 @@
-const { dbSync } = require('../db/testDb.js');
+const dbSync = require('../db/syncTEST.js');
 const generateReview = require('./generateReview.js');
 
 for (let i = 0; i < 10; i ++) {
