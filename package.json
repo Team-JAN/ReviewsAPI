@@ -12,6 +12,8 @@
   "dependencies": {
     "faker": "^4.1.0",
     "lorem-ipsum": "^2.0.3",
+    "mongoose": "^5.8.1",
+    "mongoose-sequence": "^5.2.2",
     "pg": "^7.15.1",
     "pg-native": "^3.0.0"
   }
