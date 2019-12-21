@@ -16,7 +16,7 @@ module.exports = () => {
     var dt = new Date();
     date = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
     return [
-        Math.floor(Math.random() * 4 + 1),
+        Math.floor(Math.random() * 1000010 + 1),
         Math.floor(Math.random() * 5 + 1),
         date,
         lorem.generateSentences(1),
