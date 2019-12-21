@@ -1,9 +1,10 @@
 const models = require('./models.js');
 
-module.exports.listReviews = productId => {
+//TODO: Rewrite with async/await
+module.exports.listReviews = (productId, page=0, count=5) => {
     let reviews = { product: productId };
     return new Promise((resolve, reject) => {
-        models.getReviews(productId)
+        models.getReviews(productId, page, count)
             .then(dbRes => {
                 reviews.results = dbRes;
                 let photos = [];
@@ -19,17 +20,17 @@ module.exports.listReviews = productId => {
                     resolve(reviews);
                 })
             })
-            .catch(e => reject('zoinks!'));
+            .catch(e => reject('zoinks!' + e));
     });
 }
 
 module.exports.getMeta = async (productId) => {
     const recommended = models.countRecommended(productId);
     const ratings = models.countRatings(productId);
-    //Get Characteristics
-    const characteristics = models.getCharacteristicsNames(productId);
+    const characteristics = models.getCharacteristics(productId);
     return Promise.all([recommended, ratings, characteristics]).then(res => {
         const meta = {
+            product_id: productId,
             recommended: res[0],
             ratings: res[1],
             characteristics: res[2]
