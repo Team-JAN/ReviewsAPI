@@ -11,7 +11,6 @@ app.use(bodyParser.json());
 let port = process.env.PORT || 8080;
 
 app.get('/reviews/:product_id/list', (req, res) => {
-    console.log(typeof req.params.product_id)
     controller.listReviews(req.params.product_id, req.query.page, req.query.count)
         .then(reviews => res.send(reviews))
         .catch(e => {
