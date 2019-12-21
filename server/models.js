@@ -92,3 +92,5 @@ module.exports.insertCharacteristics = async (reviewId, characteristics) => {
     }
     return Promise.all(insertions).catch(e => console.log('characteristics insertion error: ' + e));
 }
+
+
