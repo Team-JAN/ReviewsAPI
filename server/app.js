@@ -28,6 +28,15 @@ app.get('/reviews/:product_id/meta', (req, res) => {
         });
 });
 
+app.post('/reviews/:product_id', (req, res) => {
+    controller.postReview(req.params.product_id, req.body)
+        .then(() => res.sendStatus(201))
+        .catch(e => {
+            console.log('review not posted: ' + e);
+            res.sendStatus(400);
+        });
+})
+
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
 });
