@@ -44,12 +44,19 @@ module.exports.getMeta = async (productId) => {
 }
 
 module.exports.postReview = async (productId, review) => {
-    //post review, await response with review_id
     const review_id = await models.insertReview(productId, review);
-    //post photos to reviews_photos with review_id
     const photos = models.insertPhotos(review_id, review.photos);
-    //post characteristics to characteristics_reviews with review_id
     const characteristics = models.insertCharacteristics(review_id, review.characteristics);
     return Promise.all([photos, characteristics])
         .catch(e => console.log('insertion failed: ' + e));
+}
+
+module.exports.putHelpful = async (reviewId) => {
+    const helpful = await models.putReviews(reviewId, 'helpfulness', 'helpfulness + 1');
+    return helpful;
+}
+
+module.exports.putReported = async (reviewId) => {
+    const reported = await models.putReviews(reviewId, 'reported', 'true');
+    return reported;
 }

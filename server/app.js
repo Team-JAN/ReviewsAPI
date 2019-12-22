@@ -15,7 +15,7 @@ app.get('/reviews/:product_id/list', (req, res) => {
         .then(reviews => res.send(reviews))
         .catch(e => {
             console.log('zoinks!' + e);
-            res.sendStatus(400);
+            res.sendStatus(404);
         });
 });
 
@@ -24,7 +24,7 @@ app.get('/reviews/:product_id/meta', (req, res) => {
         .then(meta => res.send(meta))
         .catch(e => {
             console.log('zoinks!' + e);
-            res.sendStatus(400);
+            res.sendStatus(404);
         });
 });
 
@@ -33,6 +33,24 @@ app.post('/reviews/:product_id', (req, res) => {
         .then(() => res.sendStatus(201))
         .catch(e => {
             console.log('review not posted: ' + e);
+            res.sendStatus(400);
+        });
+});
+
+app.put('/reviews/helpful/:review_id', (req, res) => {
+    controller.putHelpful(req.params.review_id)
+        .then(() => res.sendStatus(202))
+        .catch(e => {
+            console.log('helpful not PUT: ' + e);
+            res.sendStatus(400);
+        });
+});
+
+app.put('/reviews/report/:review_id', (req, res) => {
+    controller.putReported(req.params.review_id)
+        .then(() => res.sendStatus(202))
+        .catch(e => {
+            console.log('reported not PUT: ' + e);
             res.sendStatus(400);
         });
 })

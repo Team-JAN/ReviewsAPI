@@ -3,7 +3,7 @@ const db = require('../db/index.js');
 module.exports.getReviews = (productId, page, count) => {
     const offset = page * count;
     return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM reviews WHERE (product_id = $1) OFFSET ($2) LIMIT $3', [productId, offset, count])
+        db.query('SELECT * FROM reviews WHERE (product_id = $1 AND reported = false) ORDER BY helpfulness DESC OFFSET ($2) LIMIT $3', [productId, offset, count])
             .then(res => resolve(res.rows))
             .catch(e => reject(`couldn't get reviews ${e}`));
     });
@@ -93,4 +93,8 @@ module.exports.insertCharacteristics = async (reviewId, characteristics) => {
     return Promise.all(insertions).catch(e => console.log('characteristics insertion error: ' + e));
 }
 
-
+//TODO: Figure out a better way to escape the params in the query --> SQL injection vunerability
+module.exports.putReviews = async (reviewId, col, newVal) => {
+    const Q = await db.query(`UPDATE reviews SET ${col} = ${newVal} WHERE id = ${reviewId}`);
+    return Q;
+}
