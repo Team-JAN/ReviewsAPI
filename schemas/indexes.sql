@@ -12,3 +12,6 @@ CREATE INDEX characteristics_product_index ON characteristics (product_id);
 
 --characteristics_id index
 CREATE INDEX characteristics_id_index ON characteristics_reviews (characteristic_id);
+
+--characteristics__review_id index
+CREATE INDEX characteristics_review_id_index ON characteristics_reviews (review_id);

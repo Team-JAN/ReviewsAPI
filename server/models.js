@@ -98,3 +98,8 @@ module.exports.putReviews = async (reviewId, col, newVal) => {
     const Q = await db.query(`UPDATE reviews SET ${col} = ${newVal} WHERE id = ${reviewId}`);
     return Q;
 }
+
+module.exports.delete = async (table, col, val) => {
+    const D = await db.query(`DELETE FROM ${table} WHERE ${col} = ${val}`);
+    return D;
+}

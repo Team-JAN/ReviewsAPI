@@ -60,3 +60,16 @@ module.exports.putReported = async (reviewId) => {
     const reported = await models.putReviews(reviewId, 'reported', 'true');
     return reported;
 }
+
+module.exports.deleteReview = (reviewId) => {
+    const photos = models.delete('reviews_photos', 'review_id', reviewId);
+    const characteristics = models.delete('characteristics_reviews', 'review_id', reviewId);
+    return Promise.all([photos, characteristics])
+        .then(() => {
+            return models.delete('reviews', 'id', reviewId);
+        })
+        .catch(e => {
+            console.log('Deletion failed: ' + e);
+        });
+}
+
