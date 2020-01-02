@@ -28,7 +28,7 @@ module.exports.listReviews = (productId, page=0, count=5) => {
     });
 }
 
-module.exports.getMeta = async (productId) => {
+module.exports.getMeta = (productId) => {
     const recommended = models.countRecommended(productId);
     const ratings = models.countRatings(productId);
     const characteristics = models.getCharacteristics(productId);

@@ -1,0 +1,19 @@
+config:
+  target: 'http://localhost:8080/reviews'
+  phases:
+    - duration: 30
+      arrivalRate: 100
+scenarios:
+  - flow:
+    - post:
+        url: "/42001"
+        json: 
+          rating: 3
+          summary: "this is a test"
+          body: "testing testing bork bork bork"
+          recommend: true
+          name: "doggo"
+          email: "doggo@farm.co"
+          photos: ["https://loremflickr.com/cache/resized/8213_8316522628_bcd7dde70d_320_240_nofilter.jpg", "https://scm-assets.constant.co/scm/unilever/a6798e909fa57bfd19c3e7f00737e5d6/6febc717-b269-448b-9064-39f1408489a8.jpg"]
+          characteristics: {"140932": 5, "140933": 3, "140934": 2, "140935": 4}	
+

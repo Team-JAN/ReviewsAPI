@@ -1,0 +1,10 @@
+config:
+  target: 'http://localhost:8080/reviews'
+  phases:
+    - duration: 60
+      arrivalRate: 100
+scenarios:
+  - flow:
+    - get:
+        url: "/4200/meta"
+
