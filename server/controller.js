@@ -1,14 +1,14 @@
 const models = require('./models.js');
 
 //TODO: Rewrite with async/await
-module.exports.listReviews = (productId, page=0, count=5) => {
+module.exports.listReviews = (productId, page=0, count=5, sort='helpful') => {
     let reviews = { 
         product: productId,
         page: parseInt(page),
         count: parseInt(count)
     };
     return new Promise((resolve, reject) => {
-        models.getReviews(productId, page, count)
+        models.getReviews(productId, page, count, sort)
             .then(dbRes => {
                 reviews.results = dbRes;
                 let photos = [];

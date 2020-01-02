@@ -1,9 +1,13 @@
 const db = require('../db/index.js');
 
-module.exports.getReviews = (productId, page, count) => {
+module.exports.getReviews = (productId, page, count, sort) => {
     const offset = page * count;
+    let sortBy = 'helpfulness'
+    if (sort === 'newest') {
+        sortBy = 'date';
+    }
     return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM reviews WHERE (product_id = $1 AND reported = false) ORDER BY helpfulness DESC OFFSET ($2) LIMIT $3', [productId, offset, count])
+        db.query(`SELECT * FROM reviews WHERE (product_id = ${productId} AND reported = false) ORDER BY ${sortBy} DESC OFFSET (${offset}) LIMIT ${count}`)
             .then(res => resolve(res.rows))
             .catch(e => reject(`couldn't get reviews ${e}`));
     });
