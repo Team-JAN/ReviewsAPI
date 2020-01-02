@@ -16,7 +16,7 @@ module.exports.getReviews = (productId, page, count, sort) => {
 module.exports.getPhotos = reviewId => {
     return new Promise((resolve, reject) => {
         db.query('SELECT url, id FROM reviews_photos WHERE (review_id = $1)', [reviewId])
-            .then(res => resolve(res.rows))
+            .then(res => {resolve(res.rows)})
             .catch(e => reject(e));
     });
 }

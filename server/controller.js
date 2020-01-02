@@ -5,7 +5,7 @@ module.exports.listReviews = (productId, page=0, count=5, sort='helpful') => {
     let reviews = { 
         product: productId,
         page: parseInt(page),
-        count: parseInt(count)
+        count: parseInt(count), 
     };
     return new Promise((resolve, reject) => {
         models.getReviews(productId, page, count, sort)
@@ -18,7 +18,7 @@ module.exports.listReviews = (productId, page=0, count=5, sort='helpful') => {
                     photos.push(models.getPhotos(review.review_id));
                 });
                 Promise.all(photos).then(photosRes => {
-                    for (let i = 0; i < reviews.length; i ++) {
+                    for (let i = 0; i < reviews.results.length; i ++) {
                         reviews.results[i].photos = photosRes[i];
                     }
                     resolve(reviews);
