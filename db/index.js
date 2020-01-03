@@ -1,9 +1,12 @@
 const { Client, Pool } = require('pg');
 
-process.env.PGDATABASE = 'sdc';
+// process.env.PGDATABASE = 'sdc';
+// process.env.PGHOST = '3.19.60.115'
 const client = new Pool({
     user: 'power_user',
-    password: 'FILLMEIN'
+    password: 'dogdogdog420',
+    host: '3.19.60.115',
+    database: 'sdc'
 });
 
 client.connect(err => {
