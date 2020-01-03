@@ -5,7 +5,7 @@ CREATE TABLE reviews (
     product_id INT NOT NULL,
     rating SMALLINT NOT NULL,
     date DATE NOT NULL,
-    summary VARCHAR(60) NOT NULL,
+    summary VARCHAR(200) NOT NULL,
     body VARCHAR(1000),
     recommend BOOLEAN NOT NULL,
     reported BOOLEAN NOT NULL,
