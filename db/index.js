@@ -2,7 +2,8 @@ const { Client, Pool } = require('pg');
 
 process.env.PGDATABASE = 'sdc';
 const client = new Pool({
-    user: 'alexanderho'
+    user: 'power_user',
+    password: 'FILLMEIN'
 });
 
 client.connect(err => {

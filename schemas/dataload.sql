@@ -10,8 +10,8 @@ COPY reviews_photos(id, review_id, url)
 FROM '/Users/alexanderho/HackReactor/sdc/Data/reviews_photos.csv' DELIMITER ',' CSV HEADER;
 
 -- Characteristics
--- COPY characteristics(id, product_id, name)
--- FROM '/Users/alexanderho/HackReactor/sdc/Data/characteristics.csv' DELIMITER ',' CSV HEADER;
+COPY characteristics(id, product_id, name)
+FROM '/Users/alexanderho/HackReactor/sdc/Data/characteristics.csv' DELIMITER ',' CSV HEADER;
 
 -- Characteristics_Reviews Join
 COPY characteristics_reviews(id, characteristic_id, review_id, value)
