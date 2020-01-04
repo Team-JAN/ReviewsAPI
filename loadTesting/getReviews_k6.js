@@ -13,6 +13,6 @@ export default function() {
   // const product = products[Math.floor(Math.random() * 7)];
   const product = Math.floor(Math.random() * 1000000);
   // const product = 12345;
-  http.get(`http://localhost:8080/reviews/${product}/list`);
+  http.get(`http://18.188.132.96:5000/reviews/${product}/list`);
   // sleep(1);
 };
