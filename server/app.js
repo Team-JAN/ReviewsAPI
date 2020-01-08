@@ -1,8 +1,9 @@
-// require('newrelic');
+require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const controller = require('./controller.js');
 const cors = require('cors');
+const path = require('path');
 
 const corsOptions  = {
     origin: '*',
@@ -21,7 +22,12 @@ app.use(cors(corsOptions));
 
 let port = process.env.PORT || 8080;
 
+app.get('/loaderio-4f2d194712162332f5f72bef7a64f8fa', (req, res) => res.sendFile(path.join(__dirname, '../loaderio-4f2d194712162332f5f72bef7a64f8fa.txt')));
+
+app.get('/', (req, res) => res.sendStatus(200));
+
 app.get('/reviews/:product_id/list', (req, res) => {
+//    console.log('request recieved!');		
     controller.listReviews(req.params.product_id, req.query.page, req.query.count, req.query.sort)
         .then(reviews => res.send(reviews))
         .catch(e => {
