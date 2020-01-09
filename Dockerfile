@@ -1,3 +1,5 @@
+FROM redis
+
 FROM node
 
 WORKDIR /api/
