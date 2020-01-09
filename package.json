@@ -19,6 +19,7 @@
     "mongoose-sequence": "^5.2.2",
     "newrelic": "^6.2.0",
     "pg": "^7.15.1",
-    "pg-native": "^3.0.0"
+    "pg-native": "^3.0.0",
+    "redis": "^2.8.0"
   }
 }

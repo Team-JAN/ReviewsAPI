@@ -3,6 +3,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const controller = require('./controller.js');
 const cors = require('cors');
+const redis = require('redis');
+const {promisify} = require('util');
+
+const REDIS_PORT = 6379;
+const client = redis.createClient(REDIS_PORT);
+const getAsync = promisify(client.get).bind(client);
 
 const corsOptions  = {
     origin: '*',
@@ -21,22 +27,34 @@ app.use(cors(corsOptions));
 
 let port = process.env.PORT || 8080;
 
-app.get('/reviews/:product_id/list', (req, res) => {
-    controller.listReviews(req.params.product_id, req.query.page, req.query.count, req.query.sort)
-        .then(reviews => res.send(reviews))
-        .catch(e => {
-            console.log('Could not GET reviews: ' + e);
-            res.sendStatus(404);
-        });
+app.get('/reviews/:product_id/list', async (req, res) => {
+    try {
+        const cached = await getAsync(req.url);
+        if (cached) {
+            res.send(JSON.parse(cached));
+        } else {
+            const reviews = await controller.listReviews(req.params.product_id, req.query.page, req.query.count, req.query.sort);
+            client.setex(req.url, 3600, JSON.stringify(reviews));
+            res.send(reviews);
+        }
+    } catch {
+        res.sendStatus(404);
+    }
 });
 
-app.get('/reviews/:product_id/meta', (req, res) => {
-    controller.getMeta(req.params.product_id)
-        .then(meta => res.send(meta))
-        .catch(e => {
-            console.log('Could not GET reviews meta: ' + e);
-            res.sendStatus(404);
-        });
+app.get('/reviews/:product_id/meta', async (req, res) => {
+    try {
+        const cached = await getAsync(req.url);
+        if (cached) {
+            res.send(JSON.parse(cached));
+        } else {
+            const reviews = await controller.getMeta(req.params.product_id);
+            client.setex(req.url, 3600, JSON.stringify(reviews));
+            res.send(reviews);
+        }
+    } catch {
+        res.sendStatus(404);
+    }
 });
 
 app.post('/reviews/:product_id', (req, res) => {
