@@ -5,6 +5,7 @@ const controller = require('./controller.js');
 const cors = require('cors');
 const redis = require('redis');
 const {promisify} = require('util');
+const path = require('path');
 
 const REDIS_PORT = 6379;
 const client = redis.createClient(REDIS_PORT);
@@ -26,6 +27,10 @@ app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
 let port = process.env.PORT || 8080;
+
+app.get('/loaderio-165e6821e65d62cef20675ec8799d58d', (req, res) => {
+	res.sendFile(path.join(__dirname, '../loaderio-165e6821e65d62cef20675ec8799d58d.txt'));
+});
 
 app.get('/reviews/:product_id/list', async (req, res) => {
     try {
