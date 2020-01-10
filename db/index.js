@@ -4,7 +4,7 @@ const { Client, Pool } = require('pg');
 // process.env.PGHOST = '3.19.60.115'
 const client = new Pool({
     user: 'power_user',
-    password: 'dogdogdog420',
+    password: 'FILL ME IN',
     host: '3.19.60.115',
     database: 'sdc'
 });
