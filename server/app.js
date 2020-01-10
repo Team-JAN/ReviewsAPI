@@ -38,7 +38,7 @@ app.get('/reviews/:product_id/list', async (req, res) => {
         if (cached) {
             res.send(JSON.parse(cached));
         } else {
-            const reviews = await controller.listReviews(req.params.product_id, req.query.page, req.query.count, req.query.sort);
+            const reviews = await controller.listReviewsAsync(req.params.product_id, req.query.page, req.query.count, req.query.sort);
             client.setex(req.url, 3600, JSON.stringify(reviews));
             res.send(reviews);
         }

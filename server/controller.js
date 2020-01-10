@@ -28,6 +28,37 @@ module.exports.listReviews = (productId, page=0, count=5, sort='helpful') => {
     });
 }
 
+module.exports.listReviewsAsync = async (productId, page=0, count=5, sort='helpful') => {
+    try {
+        const reviews = { 
+            product: productId,
+            page: parseInt(page),
+            count: parseInt(count), 
+        };
+
+        const reviewsQuery = await models.getReviews(productId, page, count, sort);
+        reviews.results = reviewsQuery;
+        const photosQueries = [];
+
+        reviews.results.forEach(review => {
+            review.review_id = review.id;
+            delete review.id;
+            photosQueries.push(models.getPhotos(review.review_id));
+        });
+
+        await Promise.all(photosQueries).then(photosRes => {
+            for (let i = 0; i < photosRes.length; i ++) {
+                reviews.results[i].photos = photosRes[i];
+            }
+        });
+        
+        return reviews;
+    } catch (e) {
+        console.log('zoinks!' + e)
+        throw 'Error getting reviews :(';
+    }
+}
+
 module.exports.getMeta = (productId) => {
     const recommended = models.countRecommended(productId);
     const ratings = models.countRatings(productId);
